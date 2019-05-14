@@ -5,20 +5,25 @@ from os import system
 import platform
 import numpy as np
 import time
+import random
 
-'''Article class for storing scraped information. Contains as_list method which returns the information as a list'''
+
+'''Article class for storing scraped information. Contains as_list method which returns the information as a list and as_dict which returns a dict'''
 class article:
     def __init__(self, no, embayment, htmlObj):
+        
+        
         self.no         = no
         self.embayment  = embayment
         self.title      = htmlObj.find('h3', {'class':'gs_rt'}).text
-        self.auth       = auth
-        self.abstract   = abstract
-        self.dateyear   = dateyear
-        self.link       = link
-
+        self.auth, self.dateyear   = htmlObj.find('h3', {'class':'gs_ra'}).text.split('-')[0:2]
+        self.abstract   = htmlObj.find('div', {'class':'gs_rs'}).text
+        self.citations  = htmlObj.find('div', {'class': 'gs_fl'}).children[2].text
+        self.link       = htmlObj.find('h3', {'class':'gs_rt'}).a.get('href')
+    
     '''Method which returns the information as a list with all the information stored in the class'''
     def as_vector(self):
+        y = []
         x = np.array([
             self.no,
             self.embayment,
@@ -28,24 +33,26 @@ class article:
             self.dateyear,
             self.link
         ])
-        return x
-   
-    '''prints out the format of the stored information'''
-    def format(self):
-        x = as_vector(self)
         for i in x:
-            print(i)
+            y.append(i)
+        return y
 
+    
+    '''Converts information to a dict and returns it'''
 
-'''Function clears the python interpreter console for cleaner user input'''
-def clear():   
-    x = platform.system()
-    if x == 'windows':
-        return system('cls')
-    elif x == 'darwin':
-        return system('clear')
-    else:
-        raise Exception('Unable to recognize system')
+    def dictionary(self):
+        x = dict({  'Id':self.no,
+        'Embayment':self.embayment,
+        'Article':self.title,
+        'Author/s':self.auth,
+        'Abstract':self.abstract,
+        'Year':self.dateyear,
+        'Link':self.link
+        })
+        y = []
+        for i in x:
+            y.append(i)
+        return y 
 
 '''gets user query, formats the google sholar url and then retrieves the url to a BeautifulSoup object'''
 def mkURL(embayment, query, custom = 'n', startpos = 00):
@@ -72,10 +79,9 @@ def mkURL(embayment, query, custom = 'n', startpos = 00):
         pass
     else:
         custom = 'n'
-        clear()
         print('\n\n --~~**ERROR: Unable to parse custom search settings. No custom search performed.**~~--\n\n')
         time.sleep(7)
-        clear()
+
 
 
     '''Formats the URL'''
@@ -87,26 +93,29 @@ def mkURL(embayment, query, custom = 'n', startpos = 00):
 
     return srchURL
 
+
 def getURL(url):
     try:
-        html = requests.get(url, headers = {"User-Agent":"Mozilla/5.0"}).text
+        html = requests.get(url, headers = {"User-Agent":"Mozilla/5.0"})
     except HTTPError as e:
         print(e)
     try:
-        bsObj   = BeautifulSoup(html.read())
-        arts    = bsObj.findAll('div', attrs={"class":"gs_res_ccl_mid"}).children
+        bsObj   = BeautifulSoup(html.content, "html.parser")
+        arts    = bsObj.findAll('div', attrs={"class":"gs_res_ccl_mid"})
+    #NOTE:^^^ arts is a LIST of search entries which needs to be iterated over. TODO: fix scholScrape to take in arts and treat it as a list TODO: fix article class to use .findChild to select specific elements from within each arts bs item.''' 
+
         return arts
     except AttributeError as e:
         print(e)
 
 
 def scholScrape():
-    clear()
+
 
     '''Queries for the user input'''
     embSearch       = input('\n****Input embayment name:\n')
     embQuery        = input('\n****Input other query terms or leave blank if there are none:\n')
-    customSearch    = input('\n****Would you like to custom search? [y/n]')
+    customSearch    = 'y'   #input('\n****Would you like to custom search? [y/n]') <-TODO: implement a custom search feature
     noScrape        = input('\n****Input the number of scrapes')
         
 
@@ -114,26 +123,33 @@ def scholScrape():
     url = mkURL(embSearch, embQuery, custom=customSearch)
 
     '''Generates the numpy array in which the information will be stored'''
-    output = np.array([])
+
 
     '''Beautiful Soup Object which returns the search entries'''
     ScholBod = getURL(url)
 
-    '''Iteration counter for id's'''
-    count = 0
-
     '''creating and filling out article classes for each entry in the search results'''
-    for i in ScholBod:
+    def artParser(bsObj, emb_query, uniqueId = 0):
+      #Iteration counter for id's
+        arts = np.array([])
+        count = 0
+        for i in ScholBod:
 
-        art = article(
-            count,
-            embSearch,
-            i.
+            art = article(
+                count,
+                embSearch,
+                i)
+            count += count
+            np.append(arts, art)
+        return arts
+    arts = artParser(ScholBod, embSearch)
 
-        )
-        
+    timeDelay = random.randrange(0, 20)
+    time.sleep(timeDelay)
+    return arts
+    
 
-     
+
 
 
 
