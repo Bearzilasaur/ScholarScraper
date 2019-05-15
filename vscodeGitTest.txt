@@ -1,2 +1,0 @@
-This is an attempt to work in vscode directly from github. 
-update
