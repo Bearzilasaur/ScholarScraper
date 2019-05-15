@@ -54,12 +54,11 @@ class url:
     def __init__(self, query, url="https://scholar.google.com.au/scholar?start={}&q="):
         
         '''Formats the input embayment and search terms to create the url for the search''' 
-        queryTerms = query.strip().split('')
+        queryTerms = query.strip().split(' ')
         separator ='+'
-        
+        prefix = format(url, '00')
 
-
-        self.prefix = format(url, input('Start scraping at article number [00-99]:\n'))
+        self.prefix = prefix
         self.suffix = "&hl=en&as_sdt=0,5"
         self.terms  = separator.join(queryTerms)
         self.url    = self.prefix + self.terms + self.suffix
