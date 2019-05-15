@@ -28,7 +28,7 @@ class article:
     
     '''Method which returns the information as a list with all the information stored in the class'''
     def as_array(self):
-        x = numpy.array([
+        x = numpy.array([[
             self.no,
             self.embayment,
             self.title,
@@ -36,7 +36,7 @@ class article:
             self.abstract,
             self.dateyear,
             self.link
-        ])
+        ]])
         return x
 
     
@@ -69,7 +69,6 @@ class url:
         self.suffix = "&hl=en&as_sdt=0,5"
         self.terms  = separator.join(queryTerms)
         self.url    = self.prefix + self.terms + self.suffix
-        print(self.url)
 
 
 '''Class which takes in a url as an argument, requests it using requests, 
@@ -78,11 +77,10 @@ class bsSchol:
     
     def __init__(self, url):
         self.html = requests.get(url, headers = {"User-Agent":"Mozilla/5.0"})
-        self.soup = BeautifulSoup(self.html.content, "lxml")
+        self.soup = BeautifulSoup(self.html.content, "html.parser")
         self.body = self.soup.find("div", {"id":"gs_res_ccl_mid"})
         self.results = self.body.findAll("div", {"class":"gs_ri"})
-        for i in self.results:
-            print("\n"*10, i.prettify())
+
 
 
 
@@ -96,27 +94,26 @@ def scholarScrape():
     search_url          = url(query)
     search_bsObj        = bsSchol(search_url.url)
 
-    article_array = numpy.array([
+    article_array = numpy.array([[
         "id",
         "Embayment",
         "Article Title",
         "Author/s",
         "Abstract",
-        "Citations"
-        "Link"])
+        "Citations",
+        "Link"]])
 
     
     number = 0
-    print("\n" *50, "BODY ITEMS:\n")
-    print(type(search_bsObj.results))
+
     for i in search_bsObj.results:
-        print("\n"*100,i)
         entry = article(
             number,
             embayment_query,
             i)
         number += number
-        return numpy.append(article_array, entry.as_array(), axis=0)
+
+        article_array = numpy.append(article_array, entry.as_array(), axis=0)
     
     return article_array
         
