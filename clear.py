@@ -1,6 +1,12 @@
 from os import system as sys
+import platform
 
-print('Imported clear function for windows. Usage: cls()')
+def clear():
+    opSys = platform.system()
 
-def cls():
-    sys('cls')
+    if opSys.lower() == "windows":
+        return sys('cls')
+    elif opSys.lower() == "darwin":
+        return sys('clear')
+    else:
+        print("Unable to recognize operating system")
