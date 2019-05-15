@@ -25,16 +25,21 @@ def clear():
     else:
         print("\nUnkown operating system!\n")
 
-def wipe(nLines = 10)
+def wipe(nLines = 25):
     print("\n"*nLines)
 
 
-def reload(module, function=None):
+def reload(module, fn=None):
 
-    if function != None:
-        return importlib.reload(module.function)
+    if fn != None:
+        sep = '.'
+        func = sep.join(module, fn)
+        return importlib.reload(func)
     else:
         return importlib.reload(module)
+
+
+#TODO: create a utility function that prints the x.prettify() of all children of a bsObject with "\n"*5 gaps between each child
 
 
     

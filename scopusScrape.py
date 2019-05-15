@@ -7,7 +7,7 @@ import json
 
 def scopArts(n=10):
     query   = input('\nPlease input your query:\n')
-    api     = input('\nPlease input your api:\n')
+    api     = input('\nPlease input your api key:\n')
 
     queryApi = query.replace('', '+') + format('&apiKey={}', api)
     srch = ScopusSearch(queryApi, count = n)
