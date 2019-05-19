@@ -1,1 +1,2 @@
-Need to develop list input into scholar scraper.
+TODO: Allow list/generator input of multiple embayments for scholscraper to iterate through. 
+
