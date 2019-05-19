@@ -8,8 +8,6 @@ Author: Mitchell Baum
 import requests
 from bs4 import BeautifulSoup
 import numpy
-import time
-import random
 import re
 
 
@@ -18,13 +16,15 @@ class article:
     def __init__(self, no, embayment, bsObj):
         
         
-        self.no         = no
-        self.embayment  = embayment
-        self.title      = bsObj.find('h3', {'class':'gs_rt'}).text
-        self.auth, self.dateyear   = bsObj.find('div', {'class':'gs_a'}).text.split('-')[0:2]
-        self.abstract   = bsObj.find('div', {'class':'gs_rs'}).text
-        self.citations  = bsObj.find('div', {'class': 'gs_fl'}).find(text=re.compile("^Cited by"))
-        self.link       = bsObj.find('h3', {'class':'gs_rt'}).find('a', href = True)['href']
+        self.no             = no
+        self.embayment      = embayment
+        self.title          = bsObj.find('h3', {'class':'gs_rt'}).text
+        (self.auth,         #TODO: this method using split does not work when an author has a '-' in their name maybe use ' - '??
+        self.dateyear, 
+        self.publication)   = bsObj.find('div', {'class':'gs_a'}).text.split('-')
+        self.abstract       = bsObj.find('div', {'class':'gs_rs'}).text
+        self.citations      = bsObj.find('div', {'class': 'gs_fl'}).find(text=re.compile("^Cited by"))
+        self.link           = bsObj.find('h3', {'class':'gs_rt'}).find('a', href = True)['href']
     
     '''Method which returns the information as a list with all the information stored in the class'''
     def as_array(self):
@@ -33,8 +33,10 @@ class article:
             self.embayment,
             self.title,
             self.auth,
-            self.abstract,
             self.dateyear,
+            self.publication,
+            self.abstract,
+            self.citations,
             self.link
         ]])
         return x
@@ -43,12 +45,15 @@ class article:
     '''Converts article information to a dict and returns it'''
 
     def dictionary(self):
-        x = dict({  'Id':self.no,
+        x = dict({  
+        'Id':self.no,
         'Embayment':self.embayment,
         'Article':self.title,
         'Author/s':self.auth,
-        'Abstract':self.abstract,
         'Year':self.dateyear,
+        'Publication':self.publication,
+        'Abstract':self.abstract,
+        'Citations':self.citations,
         'Link':self.link
         })
 
@@ -99,6 +104,8 @@ def scholarScrape():
         "Embayment",
         "Article Title",
         "Author/s",
+        "Year",
+        "Publication",
         "Abstract",
         "Citations",
         "Link"]])

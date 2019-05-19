@@ -1,0 +1,62 @@
+How to use Git from the command line.
+
+
+
+Local/Remote:
+
+Local repositories and branches are essentially the same as GitHub but on your local device. 
+Branches can be made from the local master branch, changes can be made to local branches, which can then be merged with the local master branch. 
+Remote branches are by convention listed with the prefix origin/ (e.g. origin/master, origin/working etc.)
+
+
+Command Line WorkFlow:
+
+A good starting point is to check the current status of the local git:
+
+1. Navigate to the local git repository
+2. git status
+4. git pull (origin [branch name] for specific branch) no option if latest commit required
+3. Make changes
+4. git add -A
+5. git commit
+6. git push origin [branch name]
+
+
+This should list all of the current changes in the local repository, update the local branch from the remote one,
+then edit, add any changes to staging area, update the local branch, then update the remote branch.
+
+
+
+
+Additionally, you can view any changes to local branches using:
+git log 
+or
+git log --summary
+
+NEXT you can add any changes you have made to the 'staging area' with:
+git add -a <file>
+
+
+or add all changed files with:
+git add -A
+
+
+Then to update the current local branchL
+git commit -m "[commit message]"
+
+
+To merge another branch with the currently active one use:
+git merge [branch name]
+
+
+To merge the current active branch with another local branch, or merge two local branches use:
+git merge [source branch] [target branch]
+
+To publish the active local branch to a remote branch:
+git push origin [branch name]
+
+To update the local repository to the newest commit use:
+git pull
+
+To update a local branch from a remote use:
+git pull origin [branch name]
