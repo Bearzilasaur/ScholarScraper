@@ -1,2 +1,7 @@
-TODO: Allow list/generator input of multiple embayments for scholscraper to iterate through. 
+TODO: Need to clean the output for export to csv file. Maybe include a query to save to csv, use pandas:
+
+pd.DataFrame(np_array).to_csv("path/to/file.csv")
+
+^^^maybe make location dependent on operating system? where should the file be stored? ask for user input??
+
 

@@ -95,18 +95,7 @@ def scholarSpider(embDict):
     if type(embDict) != dict:
         raise AttributeError('Input must be dictionary')
     
-    spiderOut = numpy.array(ndmin = 3)
-    
-    for embayment in embDict:
-        embayment_query     = embayment
-        extra_query_terms   = embDict[embayment]
-        query               = embayment_query.strip() + " " + extra_query_terms.strip()
-        search_url          = url(query)
-        search_bsObj        = bsSchol(search_url.url)
-
-        #Double square brackets required for the numpy.append call to append 
-        #article_array in the for loop below.
-        article_array = numpy.array([[
+    spiderOut = numpy.array([[
             "id",
             "Embayment",
             "Article Title",
@@ -114,6 +103,13 @@ def scholarSpider(embDict):
             "Abstract",
             "Citations",
             "Link"]])
+    
+    for embayment in embDict:
+        embayment_query     = embayment
+        extra_query_terms   = embDict[embayment]
+        query               = embayment_query.strip() + " " + extra_query_terms.strip()
+        search_url          = url(query)
+        search_bsObj        = bsSchol(search_url.url)
 
         #used to create a unique id within the numpy table. 
         number = 0
@@ -125,12 +121,10 @@ def scholarSpider(embDict):
                 i)
             number += number
 
-            article_array = numpy.append(article_array, entry.as_array(), axis=0)
-        
-        spiderOut = numpy.append(spiderOut, article_array, axis=2)
+            spiderOut = numpy.append(spiderOut, entry.as_array(), axis=0)
         
         '''Waits a random amount of time before collecting a new html'''
-        time.sleep(random.randint(1,10) / random.random())
+        time.sleep(random.randint(1,10))
     return spiderOut
     
     
