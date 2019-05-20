@@ -32,9 +32,9 @@ def wipe(nLines = 25):
 def reload(module, fn=None):
 
     if fn != None:
-        sep = '.'
-        func = sep.join(module, fn)
-        return importlib.reload(func)
+        modFunc = (module, fn)
+        flipper = '.'.join(modFunc)
+        return importlib.reload(flipper)
     else:
         return importlib.reload(module)
 
