@@ -59,15 +59,6 @@ class article:
 
         return x 
 
-'''Class which sanitizes dictionary input to make sure that all keys(embayments) are unique. 
-Taken from: https://stackoverflow.com/questions/5947950/how-can-i-force-a-dictionary-in-python-to-only-have-unique-keys'''
-class UniqueDict(dict):
-    def __setitem__(self, key, value):
-        if key not in self:
-            dict.__setitem__(self, key, value)
-        else:
-            raise KeyError("Key already exists")
-
 
 '''A url class for converting user input into a url which can be requested using requests or urllib etc.'''
 class url:
@@ -135,7 +126,3 @@ def scholarSpider(embDict):
         '''Waits a random amount of time before collecting a new html'''
         time.sleep(random.randint(1,10))
     return spiderOut
-    
-    
-    
-        
