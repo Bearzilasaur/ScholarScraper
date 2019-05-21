@@ -4,4 +4,7 @@ pd.DataFrame(np_array).to_csv("path/to/file.csv")
 
 ^^^maybe make location dependent on operating system? where should the file be stored? ask for user input??
 
+TODO: Geonames api for location data
+
+TODO: Scopus api for extra search info.
 
