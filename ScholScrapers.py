@@ -22,6 +22,9 @@ import numpy
 import time
 import random
 import re
+import sqlalchemy
+import pandas as pd
+
 
 #importing classes from ScholarClasses.py'''
 from ScholarClasses import article, bsSchol, url, UniqueDict
@@ -107,8 +110,5 @@ def scholarScrape():
         article_array = numpy.append(article_array, entry.as_array(), axis=0)
     
     return article_array
-        
-    
-    
-    
-        
+
+
