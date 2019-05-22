@@ -34,7 +34,7 @@ class article:
         self.link       = bsObj.find('h3', {'class':'gs_rt'}).find('a', href = True)['href']
     
     #Method which returns the information as a list with all the 
-    i#nformation stored in the class
+    #information stored in the class
     def as_array(self):
         x = numpy.array([[
             self.no,
