@@ -1,21 +1,21 @@
 '''
----------------------------------------------------------------------
-Scrapes google scholar search results and returns a numpy array of the 
-first 10 results with the relevent information (authors, title, absract 
-etc.)
-=============================================================================
-Author: Mitchell Baum
-=============================================================================
+#---------------------------------------------------------------------
+#Scrapes google scholar search results and returns a numpy array of the 
+#first 10 results with the relevent information (authors, title, absract 
+#etc.)
+#=============================================================================
+#Author: Mitchell Baum
+#=============================================================================
 '''
 
-'''TODO: DOCSTRING note triple apostrophe's are docstrings and are generally
-used for explaining what a piece of code does. Comments (#) should be 
-used to explain how something works or what it is doing. Need to go 
-through and edit all docstring into comments. '''
+#TODO: DOCSTRING note triple apostrophe's are docstrings and are generally
+#used for explaining what a piece of code does. Comments (#) should be 
+#used to explain how something works or what it is doing. Need to go 
+#through and edit all docstring into comments. '''
 
 
 
-'''Importing packages'''
+#Importing packages
 import requests
 from bs4 import BeautifulSoup
 import numpy
@@ -23,14 +23,15 @@ import time
 import random
 import re
 
-'''importing classes from ScholarClasses.py'''
+#importing classes from ScholarClasses.py'''
 from ScholarClasses import article, bsSchol, url, UniqueDict
 
 
 
-'''Takes a dict as input (?or two tuples) and scrapes google scholar for 
-each key:value pair. Intended use: pass an Embayment name as key and 
-keywords as values. Output in numpy format. '''
+#Takes a dict as input (?or two tuples) and scrapes google scholar for 
+#each key:value pair. Intended use: pass an Embayment name as key and 
+#keywords as values. Output in numpy format. 
+
 #TODO: needs testing!!!
 def scholarSpider(embDict):
     
@@ -65,17 +66,17 @@ def scholarSpider(embDict):
 
             spiderOut = numpy.append(spiderOut, entry.as_array(), axis=0)
         
-        '''Waits a random amount of time before collecting a new html'''
+        #Waits a random amount of time before collecting a new html
         time.sleep(random.randint(1,10))
     return spiderOut
 
 
 
-'''Takes user input and returns a numpy array with the releventa info
-from the first 10 results'''
+#Takes user input and returns a numpy array with the releventa info
+#from the first 10 results
 def scholarScrape():
 
-    '''Asking for user input for scholar search'''
+    #Asking for user input for scholar search
     embayment_query     = input("\n\nSearch:\n")
     extra_query_terms   = input("\n\nExtra Search Terms:\n")
     query               = embayment_query + " " + extra_query_terms
