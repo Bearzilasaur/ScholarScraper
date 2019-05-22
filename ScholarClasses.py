@@ -63,16 +63,6 @@ class article:
         return x 
 
 
-class scrapedTable():
-    '''Creates an object class which is comprised of a numpy array but
-    includes a method to convert to sqlite data'''
-    def __init__(self, nparr):
-        
-
-
-
-
-
 '''Class which sanitizes dictionary input to make sure that all 
 keys(embayments) are unique. 
 Taken from: https://stackoverflow.com/questions/5947950/how-can-i-force-a-dictionary-in-python-to-only-have-unique-keys'''
