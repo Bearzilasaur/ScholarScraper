@@ -20,6 +20,13 @@ def scopQuery(n=10, api="aba012f82a0a994632b6c8253eba6c91"):
 
     return jsrch
 
+
+#NOTE: Requires the article iD, maybe make a scopus article class and
+#and call a scopQuery using to populate scopusarticle objects using the
+#first 10 or so results. From that generate a list of scopusID's and
+#then pass them to the scopus abstract retrieval api. This could all be
+#it's own function similar to the scholar scraper. (see documentation
+# for the python scopus wrapper, link at top of script)
 def scopAbs(n=10)
 
 
