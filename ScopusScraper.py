@@ -27,10 +27,11 @@ def scopQuery(api="aba012f82a0a994632b6c8253eba6c91"):
 #then pass them to the scopus abstract retrieval api. This could all be
 #it's own function similar to the scholar scraper. (see documentation
 # for the python scopus wrapper, link at top of script)
-#def scopAbs(n=10)
+def scopAbs(n=10)
 
 
-
+#retrieves the full text of an article using the Elsevier API
+def scopText()
 
 
 
