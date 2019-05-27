@@ -8,12 +8,20 @@ import json
 #and for import of abstracts with scopArts and scopAbs. scopQuery used 
 #to interface with scopus api using user input
 
+
+#NOTE: THIS WORKS: https://api.elsevier.com/content/search/scopus?query=Westernport&apiKey=aba012f82a0a994632b6c8253eba6c91&httpAccept=application/json&count=10&sort=relevancy&subj=EART+ENVI
+#NOTE: scopQuery DOES NOT, NEED TO FIX!!!!
+
 def scopQuery(api="aba012f82a0a994632b6c8253eba6c91"):
     query   = input('\nPlease input your query:\n')
-    #api     = input('\nPlease input your api key:\n') <- deprecated
 
-    queryApi = query.replace('', '+') + '&apiKey=aba012f82a0a994632b6c8253eba6c91'  #format('&apiKey={}', api)
-    srch = ScopusSearch(queryApi, view='STANDARD') #STANDARD View returs first 200
+    queryForm = query.replace(' ', '%')
+
+    queryApi = queryForm + '&apiKey={}'.format(api)
+    
+    print(queryApi)
+
+    srch = ScopusSearch(queryApi) #STANDARD View returs first 200
     jsrch = json.loads(srch)
 
     print(jsrch)
@@ -27,11 +35,11 @@ def scopQuery(api="aba012f82a0a994632b6c8253eba6c91"):
 #then pass them to the scopus abstract retrieval api. This could all be
 #it's own function similar to the scholar scraper. (see documentation
 # for the python scopus wrapper, link at top of script)
-def scopAbs(n=10)
+'''def scopAbs(n=10)
 
 
 #retrieves the full text of an article using the Elsevier API
 def scopText()
-
+'''
 
 
