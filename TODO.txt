@@ -4,7 +4,13 @@ pd.DataFrame(np_array).to_csv("path/to/file.csv")
 
 ^^^maybe make location dependent on operating system? where should the file be stored? ask for user input??
 
+<<<<<<< HEAD
 TODO: Create a function and/or class(?) to convert numpy array into sql
 datatypes see https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases
 
+=======
+TODO: Geonames api for location data
+
+TODO: Scopus api for extra search info.
+>>>>>>> 4d5247a1c2f5f3d7e2742c08f63125a5ae01b0d8
 
