@@ -4,13 +4,10 @@
 '''=================================================================='''
 
 '''Article class for storing scraped information. Contains as_list 
-#method which returns the information as a list and as_dict which 
-#returns a dict'''
+method which returns the information as a list and as_dict which 
+returns a dict'''
 
-#TODO: DOCSTRING note triple apostrophe's are docstrings and are generally
-#used for explaining what a piece of code does. Comments (#) should be 
-#used to explain how something works or what it is doing. Need to go 
-#through and edit all docstring into comments. '''
+
 
 #'''required packages'''
 from bs4 import BeautifulSoup

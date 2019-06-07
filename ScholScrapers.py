@@ -8,10 +8,7 @@
 #=============================================================================
 '''
 
-#TODO: DOCSTRING note triple apostrophe's are docstrings and are generally
-#used for explaining what a piece of code does. Comments (#) should be 
-#used to explain how something works or what it is doing. Need to go 
-#through and edit all docstring into comments. '''
+
 
 
 
