@@ -77,11 +77,8 @@ def scholarSpider(embDict):
 
 #Takes user input and returns a numpy array with the releventa info
 #from the first 10 results
-def scholarScrape():
+def scholarScrape(embayment_query, extra_query_terms=''):
 
-    #Asking for user input for scholar search
-    embayment_query     = input("\n\nSearch:\n")
-    extra_query_terms   = input("\n\nExtra Search Terms:\n")
     query               = embayment_query + " " + extra_query_terms
     search_url          = url(query)
     search_bsObj        = bsSchol(search_url.url)
@@ -110,5 +107,23 @@ def scholarScrape():
         article_array = numpy.append(article_array, entry.as_array(), axis=0)
     
     return article_array
+
+def scholarQuery():
+        #Asking for user input for scholar search
+    embayment_query     = input("\n\nSearch:\n")
+    query_terms   = input("\n\nExtra Search Terms:\n")
+    return scholarScrape(embayment_query, extra_query_terms=query_terms)
+
+
+
+
+#takes a list as input and then performs the scrape for each query in 
+#the list then appends it to the numpy array arti_arr, then once completed it 
+#returns the completed numpy array. 
+def scholarList(lstIn):
+    
+    for query in lstIn:
+        arti_arr = arti_arr.append(arti_arr, scholarQuery(query), axis=0)
+    return arti_arr
 
 
